@@ -5,7 +5,7 @@ import { useUserStore } from "@/store/user";
 import { useContacts } from "@/hooks/useContacts";
 import { ChatContainer, Contacts, LogOut, Welcome } from "@/components";
 
-const socket = io("http://localhost:3000");
+const socket = io("https://chat-live-iyck.onrender.com");
 
 export const Chat = () => {
   const { contacts } = useContacts();
