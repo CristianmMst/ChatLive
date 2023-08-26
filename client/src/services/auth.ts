@@ -14,7 +14,7 @@ export const registerUser = async (user: IRegister) => {
 
 export const logout = async (id: string) => {
   await axios.get(`/auth/logout/${id}`);
-  window.open(`http://localhost:5173/login`, "_self");
+  window.open(`https://chat-live-dun.vercel.app/login`, "_self");
 };
 
 export const google = async () => {
