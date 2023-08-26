@@ -30,7 +30,7 @@ router.get(
     const user = req.user as User;
     if (user) {
       const token = createToken(user.id);
-      res.redirect(`http://localhost:5173/auth?token=${token}`);
+      res.redirect(`https://chat-live-dun.vercel.app/auth?token=${token}`);
     }
   }
 );
