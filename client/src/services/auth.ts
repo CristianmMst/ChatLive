@@ -1,5 +1,5 @@
 import axios from "@/utils/axios";
-import { API_URL } from "@/consts";
+import { API_URL, CLIENT_URL } from "@/consts";
 import { ILogin, IRegister } from "@/types/auth";
 
 export const loginUser = async (user: ILogin) => {
@@ -14,7 +14,7 @@ export const registerUser = async (user: IRegister) => {
 
 export const logout = async (id: string) => {
   await axios.get(`/auth/logout/${id}`);
-  window.open(`https://chat-live-dun.vercel.app/login`, "_self");
+  window.open(`${CLIENT_URL}/login`, "_self");
 };
 
 export const google = async () => {

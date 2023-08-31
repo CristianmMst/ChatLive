@@ -1,3 +1,4 @@
+import { API_URL } from "@/consts";
 import { io } from "socket.io-client";
 import { IContact } from "@/types/user";
 import { useEffect, useState } from "react";
@@ -5,7 +6,7 @@ import { useUserStore } from "@/store/user";
 import { useContacts } from "@/hooks/useContacts";
 import { ChatContainer, Contacts, LogOut, Welcome } from "@/components";
 
-const socket = io("https://chat-live-iyck.onrender.com");
+const socket = io(`${API_URL}`);
 
 export const Chat = () => {
   const { contacts } = useContacts();
