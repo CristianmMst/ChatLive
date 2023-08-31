@@ -1,4 +1,5 @@
 import passport from "passport";
+import { API_URL } from "../const";
 import { joinWithGoogle } from "../services/auth";
 import { Strategy as GoogleStrategy } from "passport-google-oauth20";
 
@@ -7,8 +8,7 @@ passport.use(
     {
       clientID: `${process.env["CLIENT_ID"]}`,
       clientSecret: `${process.env["CLIENT_SECRET"]}`,
-      callbackURL:
-        "https://chat-live-iyck.onrender.com/api/auth/google/callback",
+      callbackURL: `${API_URL}/auth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {

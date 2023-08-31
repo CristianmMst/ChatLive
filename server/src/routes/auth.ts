@@ -1,6 +1,7 @@
 import passport from "passport";
 import { Router } from "express";
 import { User } from "../types/auth";
+import { CLIENT_URL } from "../const";
 import { createToken } from "../utils/auth";
 import { checkSession } from "../middlewares/auth";
 import * as authController from "../controllers/auth";
@@ -30,7 +31,7 @@ router.get(
     const user = req.user as User;
     if (user) {
       const token = createToken(user.id);
-      res.redirect(`https://chat-live-dun.vercel.app/auth?token=${token}`);
+      res.redirect(`${CLIENT_URL}/auth?token=${token}`);
     }
   }
 );
