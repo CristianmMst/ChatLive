@@ -6,6 +6,7 @@ import express from "express";
 import routes from "./routes";
 import passport from "passport";
 import { Server } from "socket.io";
+import { CLIENT_URL } from "./const";
 import session from "express-session";
 
 const app = express();
@@ -30,7 +31,7 @@ app.use(passport.session());
 
 const io = new Server(server, {
   cors: {
-    origin: "https://chat-live-dun.vercel.app",
+    origin: CLIENT_URL,
   },
 });
 
