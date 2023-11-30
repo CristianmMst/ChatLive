@@ -15,7 +15,7 @@ export const Chat = () => {
 
   useEffect(() => {
     socket.emit("add-user", id);
-  }, []);
+  }, [id]);
 
   const handleChatChange = (chat: IContact) => {
     setCurrentUser(chat);

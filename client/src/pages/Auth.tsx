@@ -10,7 +10,7 @@ export const Auth = () => {
     if (tokenQuery) {
       setToken(tokenQuery);
     }
-  }, []);
+  }, [tokenQuery, setToken]);
 
   return <Navigate to={"/"} />;
 };
