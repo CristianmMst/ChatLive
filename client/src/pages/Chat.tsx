@@ -1,4 +1,4 @@
-import { API_URL } from "@/consts";
+import { SOCKET_URL } from "@/consts";
 import { io } from "socket.io-client";
 import { IContact } from "@/types/user";
 import { useEffect, useState } from "react";
@@ -6,7 +6,7 @@ import { useUserStore } from "@/store/user";
 import { useContacts } from "@/hooks/useContacts";
 import { ChatContainer, Contacts, LogOut, Welcome } from "@/components";
 
-const socket = io(`${API_URL}`);
+const socket = io(`${SOCKET_URL}`);
 
 export const Chat = () => {
   const { contacts } = useContacts();
