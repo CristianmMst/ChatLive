@@ -8,5 +8,5 @@ enum URLS_SERVER {
   PROD = "https://chat-live-iyck.onrender.com/api",
 }
 
-export const API_URL = URLS_SERVER.DEV;
-export const CLIENT_URL = URLS_CLIENT.DEV;
+export const API_URL = URLS_SERVER.PROD;
+export const CLIENT_URL = URLS_CLIENT.PROD;
