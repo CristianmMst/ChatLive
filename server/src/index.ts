@@ -11,7 +11,6 @@ import session from "express-session";
 
 const app = express();
 const server = http.createServer(app);
-console.log(process.env["CLIENT_ID"]);
 
 app.use(
   session({
