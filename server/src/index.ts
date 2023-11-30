@@ -31,7 +31,10 @@ app.use(passport.session());
 const io = new Server(server, {
   cors: {
     origin: CLIENT_URL,
+    credentials: true,
+    methods: ["GET", "POST"],
   },
+  transports: ["websocket", "polling"],
 });
 
 export const onlineUsers = new Map();
