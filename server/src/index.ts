@@ -42,7 +42,6 @@ export const onlineUsers = new Map();
 io.on("connection", (socket) => {
   socket.on("add-user", (id) => {
     onlineUsers.set(id, socket.id);
-    console.log("add user", socket.id);
   });
 
   socket.on("send-msg", ({ to, message }) => {
