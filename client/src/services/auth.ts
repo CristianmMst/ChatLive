@@ -21,6 +21,5 @@ export const google = async () => {
 
 export const verifyUserAuth = async () => {
   const { data } = await axios.post("/user");
-  console.log(data);
   return data;
 };
