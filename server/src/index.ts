@@ -31,6 +31,8 @@ app.use(
     cookie: {
       httpOnly: true,
       secure: true,
+      sameSite: "strict",
+      priority: "high",
     },
   }),
 );

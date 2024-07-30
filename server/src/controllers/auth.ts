@@ -11,7 +11,12 @@ export const loginUser = async (
   try {
     const token = await authServices.loginUserLocal({ email, password });
     return res
-      .cookie("accessToken", token, { httpOnly: true })
+      .cookie("accessToken", token, {
+        httpOnly: true,
+        secure: true,
+        sameSite: "strict",
+        priority: "high",
+      })
       .status(200)
       .send();
   } catch (error) {
