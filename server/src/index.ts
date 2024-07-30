@@ -21,15 +21,20 @@ app.use(
   }),
 );
 
+app.use(cookieParser());
+
 app.use(
   session({
     secret: "secret",
     resave: false,
     saveUninitialized: false,
+    cookie: {
+      httpOnly: true,
+      secure: true,
+    },
   }),
 );
 
-app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api", routes);
