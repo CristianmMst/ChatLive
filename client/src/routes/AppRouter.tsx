@@ -1,6 +1,6 @@
 import { PrivateRoute } from "./PrivateRoutes";
+import { Chat, Login, Register } from "@/pages";
 import { Routes, Route } from "react-router-dom";
-import { Auth, Chat, Login, Register } from "@/pages";
 
 export const AppRouter = () => {
   return (
@@ -13,7 +13,6 @@ export const AppRouter = () => {
           </PrivateRoute>
         }
       />
-      <Route path="/auth" element={<Auth />} />
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
     </Routes>

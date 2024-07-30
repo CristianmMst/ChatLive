@@ -2,13 +2,15 @@ import { ReactNode } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { BarLoader } from "react-spinners";
 import { Navigate } from "react-router-dom";
+import { useUserStore } from "@/store/user";
 
 type Props = {
   children?: ReactNode;
 };
 
 export function PrivateRoute({ children }: Props) {
-  const { token, isLoading } = useAuth();
+  const { isLoading } = useAuth();
+  const { id } = useUserStore((state) => state);
 
   if (isLoading)
     return (
@@ -17,7 +19,7 @@ export function PrivateRoute({ children }: Props) {
       </div>
     );
 
-  return token ? children : <Navigate to={"/login"} />;
+  return id ? children : <Navigate to={"/login"} />;
 }
 
 export default PrivateRoute;

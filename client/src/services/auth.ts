@@ -3,16 +3,14 @@ import { API_URL, CLIENT_URL } from "@/consts";
 import { ILogin, IRegister } from "@/types/auth";
 
 export const loginUser = async (user: ILogin) => {
-  const { data } = await axios.post("/auth/login", user);
-  return data;
+  await axios.post("/auth/login", user);
 };
 
 export const registerUser = async (user: IRegister) => {
-  const { data } = await axios.post("/auth/register", user);
-  return data;
+  await axios.post("/auth/register", user);
 };
 
-export const logout = async (id: string) => {
+export const logout = async (id: string | undefined) => {
   await axios.get(`/auth/logout/${id}`);
   window.open(`${CLIENT_URL}/login`, "_self");
 };
@@ -21,11 +19,7 @@ export const google = async () => {
   window.open(`${API_URL}/auth/google`, "_self");
 };
 
-export const verifyUserAuth = async (token: string | null) => {
-  const { data } = await axios.get("/auth/verify", {
-    headers: {
-      Authorization: token,
-    },
-  });
+export const verifyUserAuth = async () => {
+  const { data } = await axios.get("/user");
   return data;
 };
