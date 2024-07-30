@@ -8,22 +8,33 @@ import passport from "passport";
 import { Server } from "socket.io";
 import { CLIENT_URL } from "./const";
 import session from "express-session";
+import cookieParser from "cookie-parser";
+import { errorHandler } from "./middlewares/errorHandler";
 
 const app = express();
 const server = http.createServer(app);
+
+app.use(
+  cors({
+    origin: CLIENT_URL,
+    credentials: true,
+  }),
+);
 
 app.use(
   session({
     secret: "secret",
     resave: false,
     saveUninitialized: false,
-  })
+  }),
 );
 
-app.use(cors());
+app.use(cookieParser());
 app.use(express.json());
 
 app.use("/api", routes);
+
+app.use(errorHandler);
 
 app.use(passport.initialize());
 app.use(passport.session());

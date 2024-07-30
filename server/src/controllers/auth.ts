@@ -1,51 +1,49 @@
 import { onlineUsers } from "..";
+import { NextFunction, Request, Response } from "express";
 import * as authServices from "../services/auth";
-import { Request, Response } from "express";
 
-export const loginUser = async (req: Request, res: Response) => {
+export const loginUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const { email, password } = req.body;
   try {
-    const loginUser = await authServices.loginUserLocal({ email, password });
-    return res.send(loginUser);
+    const token = await authServices.loginUserLocal({ email, password });
+    return res
+      .cookie("accessToken", token, { httpOnly: true })
+      .status(200)
+      .send();
   } catch (error) {
-    return res.status(401).send(error.message);
+    next(error);
   }
 };
 
-export const registerUser = async (req: Request, res: Response) => {
+export const registerUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) => {
   const user = req.body;
   try {
     const registerUser = await authServices.registerUserLocal(user);
     return res.send(registerUser);
   } catch (error) {
-    return res.status(409).send(error.message);
+    next(error);
   }
 };
 
-export const verifyUser = async (req: Request, res: Response) => {
-  if (req.user) {
-    res.json({
-      user: req.user,
-    });
-  } else {
-    return res.status(403).json({
-      error: "Not authorized",
-    });
-  }
-};
-
-export const loginFailed = async (req: Request, res: Response) => {
+export const loginFailed = async (_req: Request, res: Response) => {
   res.status(404).json({
     msg: "Login failed",
   });
 };
 
-export const logout = (req: Request, res: Response) => {
+export const logout = (req: Request, res: Response, next: NextFunction) => {
   try {
-    if (!req.params.id) return res.json({ msg: "User id is required " });
     onlineUsers.delete(req.params.id);
-    return res.send("Logout successfully");
+    return res.clearCookie("accessToken").send();
   } catch (error) {
-    console.log(error);
+    next(error);
   }
 };

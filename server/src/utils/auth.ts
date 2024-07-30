@@ -10,7 +10,7 @@ export const encryptPassword = async (password: string) => {
 
 export const comparePassword = async (
   password: string,
-  passwordHash: string
+  passwordHash: string,
 ) => {
   const passwordIsCorrect = await compare(password, passwordHash);
   return passwordIsCorrect;
@@ -22,6 +22,10 @@ export const createToken = (id: string) => {
 };
 
 export const verifyToken = (token: string) => {
-  const validToken = verify(token, "SECRET_TOKEN") as User;
-  return validToken;
+  try {
+    const validToken = verify(token, "SECRET_TOKEN") as User;
+    return validToken;
+  } catch (error) {
+    throw new Error("Invalid access token");
+  }
 };

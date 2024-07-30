@@ -5,19 +5,17 @@ import { NextFunction, Request, Response } from "express";
 export const checkSession = async (
   req: Request,
   _res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) => {
-  const token = req.headers.authorization;
-  if (token) {
-    const user = verifyToken(token);
-    const userData = await userModel.findOne({ _id: user.id });
-    if (userData) {
-      req.user = {
-        id: userData._id,
-        email: userData.email,
-        username: userData.username,
-      };
-    }
+  const token = req.cookies.accessToken;
+  try {
+    if (!token) throw new Error("Missing access token");
+    const { id } = verifyToken(token);
+    const user = await userModel.findOne({ _id: id });
+    if (!user) throw new Error("User not found");
+    req.user = user;
+    next();
+  } catch (error) {
+    next(error);
   }
-  next();
 };

@@ -27,7 +27,15 @@ export const userSchema = new Schema<User>(
   {
     timestamps: false,
     versionKey: false,
-  }
+  },
 );
+
+userSchema.set("toJSON", {
+  transform: (_doc, ret) => {
+    ret.id = ret._id;
+    delete ret._id;
+    delete ret.__v;
+  },
+});
 
 export default model("User", userSchema);
