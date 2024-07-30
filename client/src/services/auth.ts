@@ -21,5 +21,6 @@ export const google = async () => {
 
 export const verifyUserAuth = async () => {
   const { data } = await axios.get("/user");
+  console.log(data);
   return data;
 };
