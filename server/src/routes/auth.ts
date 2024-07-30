@@ -11,7 +11,7 @@ const router = Router();
 router.post("/login", authController.loginUser);
 router.post("/register", authController.registerUser);
 
-// router.get("/logout/:id", authController.logout);
+router.get("/logout/:id", authController.logout);
 router.get("/login/failed", authController.loginFailed);
 
 // Registro & Logeo con google

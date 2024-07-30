@@ -14,14 +14,13 @@ import { errorHandler } from "./middlewares/errorHandler";
 const app = express();
 const server = http.createServer(app);
 
+app.use(cookieParser());
 app.use(
   cors({
     origin: CLIENT_URL,
     credentials: true,
   }),
 );
-
-app.use(cookieParser());
 
 app.use(
   session({
