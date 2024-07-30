@@ -5,7 +5,7 @@ enum URLS_CLIENT {
 
 enum URLS_SERVER {
   DEV = "http://localhost:3000/api",
-  PROD = "https://chat-live-iyck.onrender.com/api",
+  PROD = "https://chatlive-xat8.onrender.com/api",
 }
 
 export const API_URL = URLS_SERVER.PROD;
