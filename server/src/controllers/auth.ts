@@ -10,15 +10,7 @@ export const loginUser = async (
   const { email, password } = req.body;
   try {
     const token = await authServices.loginUserLocal({ email, password });
-    return res
-      .cookie("accessToken", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "none",
-        priority: "high",
-      })
-      .status(200)
-      .send();
+    return res.cookie("accessToken", token).status(200).send();
   } catch (error) {
     next(error);
   }
