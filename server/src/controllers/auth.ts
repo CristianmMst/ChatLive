@@ -13,8 +13,8 @@ export const loginUser = async (
     return res
       .cookie("accessToken", token, {
         httpOnly: true,
-        secure: true,
-        sameSite: "strict",
+        secure: process.env.NODE_ENV === "production",
+        sameSite: "none",
         priority: "high",
       })
       .status(200)
