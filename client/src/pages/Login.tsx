@@ -28,23 +28,23 @@ export const Login = () => {
   };
 
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen bg-black">
       <form
-        className="bg-zinc-700 p-10 pb-5 rounded flex justify-between flex-col w-full max-w-sm h-[26rem]"
+        className="bg-zinc-900 p-10 pb-5 rounded flex justify-between flex-col w-full max-w-sm gap-y-4"
         onSubmit={handleSubmit(onSubmit)}
       >
         <h1 className="font-bold text-2xl">Ingresa a tu cuenta</h1>
         <input
           type="email"
-          className="p-3 rounded"
           {...register("email")}
           placeholder="Correo electrónico"
+          className="p-3 rounded border border-zinc-700"
         />
         <input
-          className="p-3 rounded"
           type="password"
           {...register("password")}
           placeholder="Contraseña"
+          className="p-3 rounded border border-zinc-700"
         />
         <p className="text-red-500 text-center">
           {errors.email?.message ||

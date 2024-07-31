@@ -7,7 +7,8 @@ export default {
         chat: "25% 75%",
       },
       gridTemplateRows: {
-        chat: "10% 78% 12%",
+        chat: "8% 77% 15%",
+        contacts: "8% 92%",
       },
     },
   },

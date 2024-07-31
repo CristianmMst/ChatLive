@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { IContact } from "@/types/user";
-import { BiSolidUserCircle } from "react-icons/bi";
+import { FaRegUser } from "react-icons/fa6";
 
 interface Props {
   index: number;
@@ -18,13 +18,15 @@ export const Contact = ({ contact, changeChat, index }: Props) => {
 
   return (
     <div
-      className={`flex items-center w-full bg-zinc-600 rounded cursor-pointer gap-2 p-1 ${
-        index === currentActive ? "bg-zinc-700" : ""
-      }`}
+      className={`flex items-center w-full bg-zinc-600 rounded cursor-pointer gap-3 p-4 ${
+        index === currentActive ? "bg-zinc-800" : ""
+      } hover:bg-zinc-800 transition duration-500`}
       onClick={() => changeCurrentUser(index, contact)}
     >
-      <BiSolidUserCircle size={50} color="#cecece" />
-      <h2 className="font-bold">{contact.username}</h2>
+      <div className="bg-zinc-700 p-3 rounded-full">
+        <FaRegUser color="#a1a1aa" size={15} />
+      </div>
+      <h2 className="text-lg">{contact.username}</h2>
     </div>
   );
 };

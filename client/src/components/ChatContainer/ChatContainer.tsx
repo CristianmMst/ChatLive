@@ -1,9 +1,9 @@
 import { useRef } from "react";
 import { IContact } from "@/types/user";
 import { Socket } from "socket.io-client";
+import { FaRegUser } from "react-icons/fa6";
 import { ChatInput } from "./ChatInput/ChatInput";
 import { useMessages } from "@/hooks/useMessages";
-import { BiSolidUserCircle } from "react-icons/bi";
 
 interface Props {
   socket: Socket;
@@ -20,11 +20,13 @@ export const ChatContainer = ({ currentUser, socket }: Props) => {
 
   return (
     <div className="grid grid-rows-chat overflow-hidden">
-      <div className="flex items-center gap-2 p-4">
-        <BiSolidUserCircle size={40} color="#cecece" />
-        <h2 className="font-bold">{currentUser.username}</h2>
+      <div className="flex items-center gap-3 px-4 bg-zinc-900 border-b border-b-zinc-700">
+        <div className="bg-zinc-800 p-3 rounded-full">
+          <FaRegUser color="#a1a1aa" size={15} />
+        </div>
+        <h2 className="text-lg">{currentUser.username}</h2>
       </div>
-      <div className="flex flex-col pt-5 pr-3 pl-5 mr-2 gap-3 overflow-auto">
+      <div className="flex flex-col pt-5 pr-3 pl-5 mr-2 gap-3 overflow-auto bg-zinc-950">
         {messages?.map((message, index) => (
           <div key={index} ref={scrollRef}>
             <div

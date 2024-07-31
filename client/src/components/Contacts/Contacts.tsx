@@ -9,9 +9,9 @@ interface Props {
 
 export const Contacts = ({ contacts, changeChat }: Props) => {
   return (
-    <div className="bg-zinc-500 flex flex-col items-center gap-3 rounded-tl-lg rounded-bl-lg">
+    <div className="grid grid-rows-contacts bg-zinc-900 border-r border-r-zinc-700">
       <Logo />
-      <div className="flex flex-col overflow-auto gap-2 w-[90%] min-w-[70%]">
+      <div className="flex flex-col overflow-auto gap-y-4 w-full p-4">
         {contacts?.map((contact, index) => (
           <Contact
             key={index}

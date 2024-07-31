@@ -22,8 +22,8 @@ export const Chat = () => {
   };
 
   return (
-    <div className="bg-zinc-900 grid place-content-center w-[100vw] h-[100vh]">
-      <div className="grid grid-cols-chat bg-zinc-800 w-[85vw] h-[85vh] rounded-lg animate-in relative">
+    <div className="grid w-[100vw] h-[100vh]">
+      <div className="grid grid-cols-chat bg-zinc-800 w-full h-full rounded-lg animate-in relative">
         <Contacts contacts={contacts} changeChat={handleChatChange} />
         {!currentUser ? (
           <Welcome />
