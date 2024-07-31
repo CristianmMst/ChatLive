@@ -1,6 +1,8 @@
 import { onlineUsers } from "..";
-import { NextFunction, Request, Response } from "express";
 import * as authServices from "../services/auth";
+import { NextFunction, Request, Response } from "express";
+
+const isProduction = process.env.NODE_ENV;
 
 export const loginUser = async (
   req: Request,
@@ -10,14 +12,12 @@ export const loginUser = async (
   const { email, password } = req.body;
   try {
     const token = await authServices.loginUserLocal({ email, password });
-    return res
-      .cookie("accessToken", token, {
-        httpOnly: true,
-        sameSite: "none",
-        secure: process.env.NODE_ENV === "production",
-      })
-      .status(200)
-      .send();
+    res.cookie("accessToken", token, {
+      httpOnly: true,
+      sameSite: isProduction === "production" ? "none" : "strict",
+      secure: isProduction === "production",
+    });
+    return res.status(200).json({ message: "Login successful" });
   } catch (error) {
     next(error);
   }
