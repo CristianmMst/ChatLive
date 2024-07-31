@@ -4,6 +4,8 @@ import { NextFunction, Request, Response } from "express";
 
 const isProduction = process.env.NODE_ENV;
 
+console.log(isProduction);
+
 export const loginUser = async (
   req: Request,
   res: Response,
@@ -14,7 +16,6 @@ export const loginUser = async (
     const token = await authServices.loginUserLocal({ email, password });
     res.cookie("accessToken", token, {
       httpOnly: true,
-      sameSite: isProduction === "production" ? "none" : "strict",
       secure: isProduction === "production",
     });
     return res.status(200).json({ message: "Login successful" });
