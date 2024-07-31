@@ -8,9 +8,7 @@ export const getContacts = async (
   next: NextFunction,
 ) => {
   try {
-    const users = await UserModel.find({ id: { $ne: req.params.id } }).select([
-      "username",
-    ]);
+    const users = await UserModel.find({ _id: { $ne: req.params.id } });
     const newUsers = users.map((user) => {
       return {
         id: user.id,
