@@ -11,7 +11,7 @@ export const registerUser = async (user: IRegister) => {
 };
 
 export const logout = async (id: string | undefined) => {
-  await axios.get(`/auth/logout/${id}`);
+  await axios.post(`/auth/logout/${id}`);
   window.open(`${CLIENT_URL}/login`, "_self");
 };
 
@@ -20,6 +20,6 @@ export const google = async () => {
 };
 
 export const verifyUserAuth = async () => {
-  const { data } = await axios.post("/user");
+  const { data } = await axios.post("/user/profile");
   return data;
 };
