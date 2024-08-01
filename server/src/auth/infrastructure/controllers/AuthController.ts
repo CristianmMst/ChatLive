@@ -9,10 +9,14 @@ export class AuthController {
     const { email, password } = req.body;
     try {
       const token = await this.authService.login(email, password);
-      return res.cookie("accessToken", token, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-      });
+      return res
+        .cookie("accessToken", token, {
+          httpOnly: true,
+          sameSite: "none",
+          secure: true,
+        })
+        .status(200)
+        .json({ message: "Login successful" });
     } catch (error) {
       next(error);
     }
