@@ -1,6 +1,10 @@
-import { User } from "../../../user/domain/User";
-import { UserRepository } from "../../../user/domain/UserRepository";
-import { comparePassword, createToken, encryptPassword } from "../utils/auth";
+import { User } from "../../user/domain/User";
+import { UserRepository } from "../../user/domain/UserRepository";
+import {
+  createToken,
+  comparePassword,
+  encryptPassword,
+} from "../infrastructure/utils/auth";
 
 export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}

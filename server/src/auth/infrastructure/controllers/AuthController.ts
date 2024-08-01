@@ -1,6 +1,6 @@
 import { onlineUsers } from "../../../server";
-import { AuthService } from "../application/AuthService";
 import { NextFunction, Request, Response } from "express";
+import { AuthService } from "../../application/AuthService";
 
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -9,15 +9,10 @@ export class AuthController {
     const { email, password } = req.body;
     try {
       const token = await this.authService.login(email, password);
-      return res
-        .cookie("accessToken", token, {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === "production",
-        })
-        .status(200)
-        .json({
-          message: "Login successful",
-        });
+      return res.cookie("accessToken", token, {
+        httpOnly: true,
+        secure: process.env.NODE_ENV === "production",
+      });
     } catch (error) {
       next(error);
     }

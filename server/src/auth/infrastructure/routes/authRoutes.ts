@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { AuthService } from "../application/AuthService";
+import { AuthService } from "../../application/AuthService";
 import { AuthController } from "../controllers/AuthController";
 import { MongoUserRepository } from "../../../user/infrastructure/databases/MongoUserRepository";
 
