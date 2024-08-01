@@ -20,13 +20,13 @@ export const ChatContainer = ({ currentUser, socket }: Props) => {
 
   return (
     <div className="grid grid-rows-chat overflow-hidden">
-      <div className="flex items-center gap-3 px-4 bg-zinc-900 border-b border-b-zinc-700">
+      <div className="flex items-center gap-3 px-6 bg-zinc-900 border-b border-b-zinc-700">
         <div className="bg-zinc-800 p-3 rounded-full">
           <FaRegUser color="#a1a1aa" size={15} />
         </div>
         <h2 className="text-lg">{currentUser.username}</h2>
       </div>
-      <div className="flex flex-col pt-5 pr-3 pl-5 mr-2 gap-3 overflow-auto bg-zinc-950">
+      <div className="flex flex-col py-5 pr-3 pl-5 mr-2 gap-3 overflow-auto bg-zinc-950">
         {messages?.map((message, index) => (
           <div key={index} ref={scrollRef}>
             <div
@@ -35,7 +35,7 @@ export const ChatContainer = ({ currentUser, socket }: Props) => {
               }`}
             >
               <div
-                className={`flex max-w-[40%] break-words ${
+                className={`flex max-w-[40%] break-text ${
                   message.fromSelf
                     ? "bg-purple-600 rounded-tr-xl rounded-l-md"
                     : "bg-zinc-600 rounded-tl-xl rounded-r-md"

@@ -19,7 +19,7 @@ export const ChatInput = ({ handleSendMsg }: Props) => {
   return (
     <div className="flex justify-center items-center w-full bg-zinc-900 border-t border-t-zinc-700 p-5">
       <form
-        className="flex justify-around items-center bg-zinc-950 rounded-md w-full h-full border border-zinc-700"
+        className="flex justify-between p-4 items-center bg-zinc-950 rounded-md w-full h-full border border-zinc-700"
         onSubmit={sendMessage}
       >
         <input

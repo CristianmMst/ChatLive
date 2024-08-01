@@ -4,7 +4,7 @@ import { IContact } from "@/types/user";
 import { useEffect, useState } from "react";
 import { useUserStore } from "@/store/user";
 import { useContacts } from "@/hooks/useContacts";
-import { ChatContainer, Contacts, LogOut, Welcome } from "@/components";
+import { ChatContainer, Contacts, Welcome } from "@/components";
 
 const socket = io(`${SOCKET_URL}`);
 
@@ -30,7 +30,6 @@ export const Chat = () => {
         ) : (
           <ChatContainer currentUser={currentUser} socket={socket} />
         )}
-        <LogOut />
       </div>
     </div>
   );

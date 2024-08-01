@@ -31,6 +31,10 @@
   -webkit-text-size-adjust: 100%;
 }
 
+.break-text {
+  overflow-wrap: anywhere;
+}
+
 .animate-in {
   opacity: 1;
   animation: animate-in 0.5s ease;
