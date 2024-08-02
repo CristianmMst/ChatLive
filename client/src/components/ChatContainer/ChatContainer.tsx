@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { IContact } from "@/types/user";
 import { Socket } from "socket.io-client";
 import { FaRegUser } from "react-icons/fa6";
+import { formatTime } from "@/utils/formatTime";
 import { ChatInput } from "./ChatInput/ChatInput";
 import { useMessages } from "@/hooks/useMessages";
 
@@ -35,13 +36,18 @@ export const ChatContainer = ({ currentUser, socket }: Props) => {
               }`}
             >
               <div
-                className={`flex max-w-[40%] break-text ${
+                className={`flex relative max-w-[40%] break-text ${
                   message.fromSelf
-                    ? "bg-purple-600 rounded-tr-xl rounded-l-md"
-                    : "bg-zinc-600 rounded-tl-xl rounded-r-md"
+                    ? "bg-purple-600 rounded-tr-xl rounded-l-md pr-10"
+                    : "bg-zinc-600 rounded-tl-xl rounded-r-md pr-10"
                 }`}
               >
                 <p className="px-4 py-1">{message.message}</p>
+                <span
+                  className={`absolute text-[0.6rem] ${message.fromSelf ? "right-2 bottom-1" : "right-2 bottom-1"}`}
+                >
+                  {formatTime(message.createdAt)}
+                </span>
               </div>
             </div>
           </div>

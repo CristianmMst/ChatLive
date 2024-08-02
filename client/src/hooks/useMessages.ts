@@ -32,7 +32,7 @@ export const useMessages = ({ currentUser, socket, scrollRef }: Params) => {
       if (previousData) {
         queryClient.setQueryData(
           ["messages", currentUser],
-          [...previousData, { fromSelf: true, message }]
+          [...previousData, { fromSelf: true, message, createdAt: new Date() }],
         );
       }
     },
@@ -45,7 +45,11 @@ export const useMessages = ({ currentUser, socket, scrollRef }: Params) => {
       to: currentUser.id,
     });
 
-    saveMessage({ from: id, to: currentUser.id, message });
+    saveMessage({
+      from: id,
+      to: currentUser.id,
+      message,
+    });
   };
 
   useEffect(() => {
@@ -57,15 +61,18 @@ export const useMessages = ({ currentUser, socket, scrollRef }: Params) => {
       if (previousData) {
         queryClient.setQueryData(
           ["messages", currentUser],
-          [...previousData, { fromSelf: false, message }]
+          [
+            ...previousData,
+            { fromSelf: false, message, createdAt: new Date() },
+          ],
         );
       }
     });
-  }, []);
+  }, [currentUser, queryClient, socket]);
 
   useEffect(() => {
     scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  }, [messages]);
+  }, [messages, scrollRef]);
 
   return { messages, handleSendMsg };
 };

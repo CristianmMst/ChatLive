@@ -22,6 +22,7 @@ export class MongoMessageRepository implements MessageRepository {
       return {
         fromSelf: msg.sender.toString() === from,
         message: msg.message?.text,
+        createdAt: msg.createdAt,
       };
     });
     return messagesMapper;
