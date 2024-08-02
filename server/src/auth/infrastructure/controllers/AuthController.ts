@@ -6,9 +6,9 @@ export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   login = async (req: Request, res: Response, next: NextFunction) => {
-    const { email, password } = req.body;
+    const user = req.body;
     try {
-      const token = await this.authService.login(email, password);
+      const token = await this.authService.login(user);
       return res
         .cookie("accessToken", token, {
           httpOnly: true,
@@ -32,9 +32,9 @@ export class AuthController {
   };
 
   register = async (req: Request, res: Response, next: NextFunction) => {
-    const { email, username, password } = req.body;
+    const user = req.body;
     try {
-      await this.authService.register(email, username, password);
+      await this.authService.register(user);
       return res.status(200).json({ message: "Register successful" });
     } catch (error) {
       next(error);

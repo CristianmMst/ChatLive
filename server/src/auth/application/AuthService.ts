@@ -5,11 +5,13 @@ import {
   comparePassword,
   encryptPassword,
 } from "../infrastructure/utils/auth";
+import { LoginUserDto } from "./dtos/LoginUserDto";
+import { RegisterUserDto } from "./dtos/RegisterUserDto";
 
 export class AuthService {
   constructor(private readonly userRepository: UserRepository) {}
 
-  async login(email: string, password: string): Promise<string> {
+  async login({ email, password }: LoginUserDto): Promise<string> {
     const user = await this.userRepository.findByEmail(email);
     if (!user) throw new Error("User not found");
 
@@ -20,11 +22,11 @@ export class AuthService {
     return token;
   }
 
-  async register(
-    email: string,
-    username: string,
-    password: string,
-  ): Promise<void> {
+  async register({
+    email,
+    username,
+    password,
+  }: RegisterUserDto): Promise<void> {
     const userExists = await this.userRepository.findByEmail(email);
     if (userExists) throw new Error("User already exists");
 
