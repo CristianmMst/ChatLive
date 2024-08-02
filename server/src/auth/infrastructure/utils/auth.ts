@@ -1,6 +1,8 @@
 import { hash, compare } from "bcrypt";
 import { JwtPayload, sign, verify } from "jsonwebtoken";
 
+const JWT_SECRET = process.env.JWT_SECRET!;
+
 export const encryptPassword = async (password: string) => {
   const passwordHash = await hash(password, 8);
   return passwordHash;
@@ -15,12 +17,12 @@ export const comparePassword = async (
 };
 
 export const createToken = (id: string) => {
-  return sign({ id }, "SECRET_TOKEN");
+  return sign({ id }, JWT_SECRET);
 };
 
 export const verifyToken = (token: string) => {
   try {
-    return verify(token, "SECRET_TOKEN") as JwtPayload;
+    return verify(token, JWT_SECRET) as JwtPayload;
   } catch (error) {
     throw new Error("Invalid access token");
   }
