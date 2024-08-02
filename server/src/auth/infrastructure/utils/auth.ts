@@ -1,5 +1,6 @@
 import { hash, compare } from "bcrypt";
 import { JwtPayload, sign, verify } from "jsonwebtoken";
+import { InvalidToken } from "../../domain/exceptions/InvalidToken";
 
 const JWT_SECRET = process.env.JWT_SECRET!;
 
@@ -24,6 +25,6 @@ export const verifyToken = (token: string) => {
   try {
     return verify(token, JWT_SECRET) as JwtPayload;
   } catch (error) {
-    throw new Error("Invalid access token");
+    throw new InvalidToken();
   }
 };

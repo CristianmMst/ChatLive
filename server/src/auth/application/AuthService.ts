@@ -1,5 +1,7 @@
 import { User } from "../../user/domain/User";
 import { UserRepository } from "../../user/domain/UserRepository";
+import { InvalidCredential } from "../domain/exceptions/InvalidCredential";
+import { UserAlreadyExists } from "../domain/exceptions/UserAlreadyExists";
 import {
   createToken,
   comparePassword,
@@ -13,13 +15,12 @@ export class AuthService {
 
   async login({ email, password }: LoginUserDto): Promise<string> {
     const user = await this.userRepository.findByEmail(email);
-    if (!user) throw new Error("User not found");
+    if (!user) throw new InvalidCredential();
 
     const passwordIsCorrect = await comparePassword(password, user.password);
-    if (!passwordIsCorrect) throw new Error("Credentials are incorrect");
+    if (!passwordIsCorrect) throw new InvalidCredential();
 
-    const token = createToken(user.id!);
-    return token;
+    return createToken(user.id!);
   }
 
   async register({
@@ -28,7 +29,7 @@ export class AuthService {
     password,
   }: RegisterUserDto): Promise<void> {
     const userExists = await this.userRepository.findByEmail(email);
-    if (userExists) throw new Error("User already exists");
+    if (userExists) throw new UserAlreadyExists();
 
     const passwordHash = await encryptPassword(password);
     const user = new User(email, username, passwordHash);
