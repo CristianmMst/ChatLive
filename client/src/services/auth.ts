@@ -7,7 +7,9 @@ export const loginUser = async (user: ILogin) => {
 };
 
 export const registerUser = async (user: IRegister) => {
-  await axios.post("/auth/register", user);
+  const { data } = await axios.post("/auth/register", user);
+  console.log(data);
+  return data;
 };
 
 export const logout = async (id: string | undefined) => {
