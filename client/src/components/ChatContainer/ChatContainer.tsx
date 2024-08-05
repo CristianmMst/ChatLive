@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { IContact } from "@/types/user";
 import { Socket } from "socket.io-client";
+import { IoClose } from "react-icons/io5";
 import { FaRegUser } from "react-icons/fa6";
 import { formatTime } from "@/utils/formatTime";
 import { ChatInput } from "./ChatInput/ChatInput";
@@ -9,9 +10,15 @@ import { useMessages } from "@/hooks/useMessages";
 interface Props {
   socket: Socket;
   currentUser: IContact;
+  // handleChatChange: (chat: IContact | null) => void;
+  handleContactClick: (index: number | null, contact: IContact | null) => void;
 }
 
-export const ChatContainer = ({ currentUser, socket }: Props) => {
+export const ChatContainer = ({
+  socket,
+  currentUser,
+  handleContactClick,
+}: Props) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const { messages, handleSendMsg } = useMessages({
     socket,
@@ -21,11 +28,18 @@ export const ChatContainer = ({ currentUser, socket }: Props) => {
 
   return (
     <div className="grid grid-rows-chat overflow-hidden">
-      <div className="flex items-center gap-3 px-6 bg-zinc-900 border-b border-b-zinc-700">
-        <div className="bg-zinc-800 p-3 rounded-full">
-          <FaRegUser color="#a1a1aa" size={15} />
+      <div className="flex justify-between items-center px-8 bg-zinc-900 border-b border-b-zinc-700">
+        <div className="flex items-center gap-3">
+          <div className="bg-zinc-800 p-3 rounded-full">
+            <FaRegUser color="#a1a1aa" size={15} />
+          </div>
+          <h2 className="text-lg">{currentUser.username}</h2>
         </div>
-        <h2 className="text-lg">{currentUser.username}</h2>
+        <IoClose
+          size={25}
+          className="cursor-pointer"
+          onClick={() => handleContactClick(null, null)}
+        />
       </div>
       <div className="flex flex-col py-5 pr-3 pl-5 mr-2 gap-3 overflow-auto bg-zinc-950">
         {messages?.map((message, index) => (
