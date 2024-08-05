@@ -7,9 +7,6 @@ export const useRegister = () => {
 
   const { mutate, isLoading, error } = useMutation({
     mutationFn: registerUser,
-    onError: (error) => {
-      console.log(error);
-    },
     onSuccess: () => {
       navigate("/login");
     },
