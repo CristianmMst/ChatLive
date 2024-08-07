@@ -1,12 +1,10 @@
 import { Logo, Menu } from "..";
-// import { useState } from "react";
 import { IContact } from "@/types/user";
-import { Contact } from "./Contact/Contact";
+import { FaRegUser } from "react-icons/fa6";
 
 interface Props {
   contacts?: IContact[];
   currentActive: number | null;
-  // handleChatChange: (contact: IContact) => void;
   handleContactClick: (index: number, contact: IContact) => void;
 }
 
@@ -23,13 +21,17 @@ export const Contacts = ({
       </div>
       <div className="flex flex-col overflow-auto gap-y-4 w-full p-4">
         {contacts?.map((contact, index) => (
-          <Contact
-            key={index}
-            index={index}
-            contact={contact}
-            isActive={index === currentActive}
-            handleContactClick={handleContactClick}
-          />
+          <div
+            className={`flex items-center w-full bg-zinc-600 rounded cursor-pointer gap-3 p-4 ${
+              currentActive === index ? "bg-zinc-800" : ""
+            } hover:bg-zinc-800 transition duration-500`}
+            onClick={() => handleContactClick(index, contact)}
+          >
+            <div className="bg-zinc-700 p-3 rounded-full">
+              <FaRegUser color="#a1a1aa" size={15} />
+            </div>
+            <h2 className="text-lg">{contact.username}</h2>
+          </div>
         ))}
       </div>
     </div>

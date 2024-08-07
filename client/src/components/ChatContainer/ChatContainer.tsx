@@ -10,7 +10,6 @@ import { useMessages } from "@/hooks/useMessages";
 interface Props {
   socket: Socket;
   currentUser: IContact;
-  // handleChatChange: (chat: IContact | null) => void;
   handleContactClick: (index: number | null, contact: IContact | null) => void;
 }
 
