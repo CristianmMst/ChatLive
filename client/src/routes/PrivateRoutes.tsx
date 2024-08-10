@@ -1,8 +1,8 @@
 import { ReactNode } from "react";
-import { useAuth } from "@/hooks/useAuth";
 import { BarLoader } from "react-spinners";
 import { Navigate } from "react-router-dom";
-import { useUserStore } from "@/store/user";
+import { useAuth } from "@/modules/auth/hooks";
+import { useUserStore } from "@/modules/shared/store/user";
 
 type Props = {
   children?: ReactNode;

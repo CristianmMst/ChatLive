@@ -1,6 +1,7 @@
 import { PrivateRoute } from "./PrivateRoutes";
-import { Chat, Login, Register } from "@/pages";
 import { Routes, Route } from "react-router-dom";
+import { Login, Register } from "@/modules/auth/components";
+import { ChatContainer } from "@/modules/chat/components/ChatContainer";
 
 export const AppRouter = () => {
   return (
@@ -9,7 +10,7 @@ export const AppRouter = () => {
         path="/"
         element={
           <PrivateRoute>
-            <Chat />
+            <ChatContainer />
           </PrivateRoute>
         }
       />
