@@ -22,6 +22,7 @@ export const Contacts = ({
       <div className="flex flex-col overflow-auto gap-y-4 w-full p-4">
         {contacts?.map((contact, index) => (
           <div
+            key={index}
             className={`flex items-center w-full bg-zinc-600 rounded cursor-pointer gap-3 p-4 ${
               currentActive === index ? "bg-zinc-800" : ""
             } hover:bg-zinc-800 transition duration-500`}
