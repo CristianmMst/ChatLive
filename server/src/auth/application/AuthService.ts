@@ -1,3 +1,4 @@
+import { Profile } from "passport";
 import { User } from "../../user/domain/User";
 import { UserRepository } from "../../user/domain/UserRepository";
 import { InvalidCredential } from "../domain/exceptions/InvalidCredential";
@@ -17,7 +18,7 @@ export class AuthService {
     const user = await this.userRepository.findByEmail(email);
     if (!user) throw new InvalidCredential();
 
-    const passwordIsCorrect = await comparePassword(password, user.password);
+    const passwordIsCorrect = await comparePassword(password, user.password!);
     if (!passwordIsCorrect) throw new InvalidCredential();
 
     return createToken(user.id!);
