@@ -2,7 +2,7 @@ import { Router } from "express";
 import { UserService } from "../../application/UserService";
 import { UserController } from "../controllers/UserController";
 import { MongoUserRepository } from "../databases/MongoUserRepository";
-import { checkSession } from "../../../auth/infrastructure/middlewares/chechSession";
+import { checkSession } from "../../../auth/infrastructure/middlewares/checkSession";
 
 export class UserRoutes {
   static get routes(): Router {
