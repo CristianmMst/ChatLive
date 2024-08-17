@@ -1,4 +1,4 @@
-import { Contacts, User } from "../domain/User";
+import { User } from "../domain/User";
 import { UserRepository } from "../domain/UserRepository";
 import { UserNotFound } from "../domain/exceptions/UserNotFound";
 
@@ -11,7 +11,7 @@ export class UserService {
     return user;
   }
 
-  async getContacts(id: string): Promise<Contacts[]> {
+  async getContacts(id: string): Promise<Pick<User, "id" | "username">[]> {
     const user = await this.userRepository.findById(id);
     if (!user) throw new UserNotFound();
     const users = await this.userRepository.getContacts(id);
