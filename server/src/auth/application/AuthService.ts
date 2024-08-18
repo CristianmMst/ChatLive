@@ -34,6 +34,6 @@ export class AuthService {
 
     const passwordHash = await encryptPassword(password);
     const user = new User(email, username, passwordHash);
-    return await this.userRepository.save(user);
+    await this.userRepository.save(user);
   }
 }
