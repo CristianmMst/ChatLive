@@ -24,7 +24,7 @@ export const useMessages = ({ currentUser, socket, scrollRef }: Params) => {
 
   const { mutate: saveMessage } = useMutation({
     mutationFn: addMessage,
-    onMutate: ({ message }) => {
+    onMutate: ({ text }) => {
       const previousData = queryClient.getQueryData<Message[]>([
         "messages",
         currentUser,
@@ -32,15 +32,15 @@ export const useMessages = ({ currentUser, socket, scrollRef }: Params) => {
       if (previousData) {
         queryClient.setQueryData(
           ["messages", currentUser],
-          [...previousData, { fromSelf: true, message, createdAt: new Date() }],
+          [...previousData, { fromSelf: true, text, createdAt: new Date() }],
         );
       }
     },
   });
 
-  const handleSendMsg = async (message: string) => {
+  const handleSendMsg = async (text: string) => {
     socket.emit("send-msg", {
-      message,
+      text,
       from: id,
       to: currentUser.id,
     });
@@ -48,7 +48,7 @@ export const useMessages = ({ currentUser, socket, scrollRef }: Params) => {
     saveMessage({
       from: id,
       to: currentUser.id,
-      message,
+      text,
     });
   };
 

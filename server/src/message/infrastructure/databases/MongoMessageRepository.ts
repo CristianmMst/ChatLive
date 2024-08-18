@@ -3,7 +3,7 @@ import { messageModel } from "../models/MessageModel";
 import { MessageRepository } from "../../domain/MessageRepository";
 
 export class MongoMessageRepository implements MessageRepository {
-  async addMessage({ from, to, text, image }: Message): Promise<void> {
+  async addMessage({ from, to, text, image }: Message) {
     await messageModel.create({
       message: {
         text,
@@ -14,15 +14,16 @@ export class MongoMessageRepository implements MessageRepository {
     });
   }
 
-  async getMessages(from: string, to: string): Promise<any[]> {
+  async getMessages(from: string, to: string) {
     const messages = await messageModel
       .find({ users: { $all: [from, to] } })
       .sort({ updateAt: 1 });
-    const messagesMapper = messages.map((msg) => {
+    const messagesMapper = messages.map(({ sender, message, createdAt }) => {
       return {
-        fromSelf: msg.sender.toString() === from,
-        message: msg.message?.text,
-        createdAt: msg.createdAt,
+        fromSelf: sender.toString() === from,
+        text: message?.text,
+        createdAt: createdAt,
+        image: message?.image,
       };
     });
     return messagesMapper;

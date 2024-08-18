@@ -2,7 +2,8 @@ import { useRef } from "react";
 import { formatTime } from "@/modules/shared/utils";
 
 interface Message {
-  message: string;
+  text: string;
+  image: string;
   fromSelf: boolean;
   createdAt: Date;
 }
@@ -24,13 +25,19 @@ export const Messages = ({ messages }: Props) => {
             }`}
           >
             <div
-              className={`flex relative max-w-[40%] break-text ${
+              className={`flex flex-col justify-center relative max-w-[40%] break-text min-w-[6.5rem] ${
                 message.fromSelf
-                  ? "bg-purple-600 rounded-tr-xl rounded-l-md pr-10"
-                  : "bg-zinc-600 rounded-tl-xl rounded-r-md pr-10"
+                  ? "bg-purple-600 rounded-tr-xl rounded-l-md"
+                  : "bg-zinc-600 rounded-tl-xl rounded-r-md"
               }`}
             >
-              <p className="px-4 py-1">{message.message}</p>
+              {message.image && (
+                <img
+                  src={message.image}
+                  className="w-full px-2 pt-2 rounded-xl"
+                />
+              )}
+              <p className="px-4 py-1">{message.text}</p>
               <span
                 className={`absolute text-[0.6rem] ${
                   message.fromSelf ? "right-2 bottom-1" : "right-2 bottom-1"

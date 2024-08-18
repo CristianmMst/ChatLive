@@ -1,16 +1,16 @@
 import axios from "@/modules/shared/utils/axios";
 
 interface ISendMessage {
-  message?: string;
+  text?: string;
   from?: string;
   to?: string;
 }
 
-export const addMessage = async ({ from, to, message }: ISendMessage) => {
+export const addMessage = async ({ from, to, text }: ISendMessage) => {
   return await axios.post("/messages/addMessage", {
     from,
     to,
-    message,
+    text,
   });
 };
 
@@ -19,5 +19,6 @@ export const getMessages = async ({ from, to }: ISendMessage) => {
     from,
     to,
   });
+  console.log(data);
   return data;
 };

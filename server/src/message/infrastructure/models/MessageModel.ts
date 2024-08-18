@@ -5,7 +5,7 @@ const messageSchema = new Schema(
     message: {
       text: {
         type: String,
-        required: true,
+        required: false,
       },
       image: {
         type: String,

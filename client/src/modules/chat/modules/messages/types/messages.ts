@@ -1,5 +1,6 @@
 export interface Message {
-  message: string;
+  text: string;
+  image: string;
   fromSelf: boolean;
   createdAt: Date;
 }
