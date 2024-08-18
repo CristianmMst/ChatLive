@@ -16,7 +16,12 @@ export class AuthService {
 
   async login({ email, password }: LoginUserDto): Promise<string> {
     const user = await this.userRepository.findByEmail(email);
+
     if (!user) throw new InvalidCredential();
+    if (!user.password)
+      throw new InvalidCredential(
+        "Correo ya existente, prueba con otro metodo",
+      );
 
     const passwordIsCorrect = await comparePassword(password, user.password!);
     if (!passwordIsCorrect) throw new InvalidCredential();
@@ -35,5 +40,15 @@ export class AuthService {
     const passwordHash = await encryptPassword(password);
     const user = new User(email, username, passwordHash);
     await this.userRepository.save(user);
+  }
+
+  async handleGoogleAuth(profile: Profile): Promise<User> {
+    const email = profile.emails?.[0].value!;
+    const userExists = await this.userRepository.findByEmail(email);
+    if (!userExists) {
+      const user = new User(email, profile.displayName, null, profile.id);
+      return this.userRepository.save(user);
+    }
+    return userExists;
   }
 }

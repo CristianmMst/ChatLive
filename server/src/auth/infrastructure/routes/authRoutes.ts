@@ -1,3 +1,4 @@
+import passport from "passport";
 import { Router } from "express";
 import { AuthService } from "../../application/AuthService";
 import { AuthController } from "../controllers/AuthController";
@@ -13,6 +14,22 @@ export class AuthRoutes {
     router.post("/login", authController.login);
     router.post("/logout/:id", authController.logout);
     router.post("/register", authController.register);
+
+    router.get(
+      "/google",
+      passport.authenticate("google", {
+        session: false,
+        scope: ["profile", "email"],
+      }),
+    );
+
+    router.get(
+      "/google/callback",
+      passport.authenticate("google", {
+        failureRedirect: "/login/failed",
+      }),
+      authController.googleAuth,
+    );
 
     return router;
   }

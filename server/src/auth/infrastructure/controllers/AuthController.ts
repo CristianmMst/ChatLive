@@ -1,4 +1,8 @@
+import "../middlewares/passport";
+import { createToken } from "../utils/auth";
 import { onlineUsers } from "../../../server";
+import { User } from "../../../user/domain/User";
+import { CLIENT_URL } from "../../../shared/const";
 import { NextFunction, Request, Response } from "express";
 import { AuthService } from "../../application/AuthService";
 
@@ -36,6 +40,24 @@ export class AuthController {
     try {
       const user2 = await this.authService.register(user);
       return res.status(200).json({ message: "Register successful", user2 });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  googleAuth = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = req.user as User;
+      if (user) {
+        const token = createToken(user.id!);
+        return res
+          .cookie("accessToken", token, {
+            httpOnly: true,
+            sameSite: "none",
+            secure: true,
+          })
+          .redirect(`${CLIENT_URL}/`);
+      }
     } catch (error) {
       next(error);
     }
