@@ -1,11 +1,13 @@
 export class Message {
   readonly to: string;
   readonly from: string;
-  readonly message: string;
+  readonly text: string;
+  readonly image?: string;
 
-  constructor(to: string, from: string, message: string) {
+  constructor(to: string, from: string, text: string, image?: string) {
     this.to = to;
     this.from = from;
-    this.message = message;
+    this.text = text;
+    this.image = image;
   }
 }

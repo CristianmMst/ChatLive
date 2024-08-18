@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { upload } from "../middlewares/multer";
 import { MessageService } from "../../application/MessageService";
 import { MessageController } from "../controllers/MessageController";
 import { MongoMessageRepository } from "../databases/MongoMessageRepository";
@@ -10,7 +11,12 @@ export class MessageRoutes {
     const messageService = new MessageService(messageRepository);
     const messageController = new MessageController(messageService);
 
-    router.post("/addMessage", messageController.addMessage);
+    router.post(
+      "/addMessage",
+      upload.single("image"),
+      messageController.addMessage,
+    );
+
     router.post("/getMessages", messageController.getMessages);
 
     return router;

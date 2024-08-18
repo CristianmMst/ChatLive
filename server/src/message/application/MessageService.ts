@@ -4,12 +4,18 @@ import { MessageRepository } from "../domain/MessageRepository";
 export class MessageService {
   constructor(private readonly messageRepository: MessageRepository) {}
 
-  async addMessage(message: Message) {
+  async addMessage(messageData: Message) {
+    const message = new Message(
+      messageData.to,
+      messageData.from,
+      messageData.text,
+      messageData.image,
+    );
     await this.messageRepository.addMessage(message);
   }
 
-  async getAllMessages(message: Message) {
-    const messages = await this.messageRepository.getMessages(message);
+  async getAllMessages(from: string, to: string) {
+    const messages = await this.messageRepository.getMessages(from, to);
     return messages;
   }
 }
