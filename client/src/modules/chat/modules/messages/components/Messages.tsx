@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { RefObject } from "react";
 import { formatTime } from "@/modules/shared/utils";
 
 interface Message {
@@ -10,11 +10,10 @@ interface Message {
 
 interface Props {
   messages: Message[] | undefined;
+  scrollRef: RefObject<HTMLDivElement>;
 }
 
-export const Messages = ({ messages }: Props) => {
-  const scrollRef = useRef<HTMLDivElement>(null);
-
+export const Messages = ({ messages, scrollRef }: Props) => {
   return (
     <div className="flex flex-col py-5 pr-3 pl-5 mr-2 gap-3 overflow-auto bg-zinc-950">
       {messages?.map((message, index) => (
@@ -34,17 +33,19 @@ export const Messages = ({ messages }: Props) => {
               {message.image && (
                 <img
                   src={message.image}
-                  className="w-full px-2 pt-2 rounded-xl"
+                  className={`w-full p-1 rounded-xl ${message.text && "pb-0"}`}
                 />
               )}
-              <p className="px-4 py-1">{message.text}</p>
-              <span
-                className={`absolute text-[0.6rem] ${
-                  message.fromSelf ? "right-2 bottom-1" : "right-2 bottom-1"
-                }`}
-              >
-                {formatTime(message.createdAt)}
-              </span>
+              <div className="flex items-start justify-between">
+                {message.text && (
+                  <p className="px-4 py-1 self-start">{message.text}</p>
+                )}
+                <span
+                  className={`text-[0.6rem] self-end pr-2 pb-1 ${message.image && !message.text && "absolute right-1 bottom-1"}`}
+                >
+                  {formatTime(message.createdAt)}
+                </span>
+              </div>
             </div>
           </div>
         </div>

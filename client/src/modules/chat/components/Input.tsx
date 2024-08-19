@@ -34,10 +34,11 @@ export const Input = ({ handleSendMsg }: Props) => {
 
   const sendMessage = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (message.text.length > 0) {
+    if (message.text.length > 0 || message.image !== null) {
       handleSendMsg({ text: message.text, image: message.image });
       setPreview("");
       setMessage({ text: "", image: null });
+      if (fileInputRef.current) fileInputRef.current.value = "";
     }
   };
 
@@ -93,7 +94,11 @@ export const Input = ({ handleSendMsg }: Props) => {
         >
           <IoMdSend
             size={25}
-            color={message.text.length === 0 ? "grey" : "white"}
+            color={
+              message.text.length === 0 && message.image === null
+                ? "grey"
+                : "white"
+            }
           />
         </button>
       </form>

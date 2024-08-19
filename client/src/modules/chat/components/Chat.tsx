@@ -36,7 +36,7 @@ export const Chat = ({ socket, currentUser, handleContactClick }: Props) => {
           onClick={() => handleContactClick(null, null)}
         />
       </div>
-      <Messages messages={messages} />
+      <Messages messages={messages} scrollRef={scrollRef} />
       <Input handleSendMsg={handleSendMsg} />
     </div>
   );
