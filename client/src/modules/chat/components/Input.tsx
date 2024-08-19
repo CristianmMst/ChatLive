@@ -89,7 +89,7 @@ export const Input = ({ handleSendMsg }: Props) => {
         <button
           type="submit"
           className="p-2"
-          disabled={message.text.length === 0}
+          disabled={message.text.length === 0 && message.image === null}
         >
           <IoMdSend
             size={25}
