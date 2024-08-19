@@ -66,8 +66,8 @@ export class App {
         onlineUsers.set(id, socket.id);
       });
 
-      socket.on("send-msg", ({ to, message }) => {
-        const sendTo = onlineUsers.get(to);
+      socket.on("send-msg", (message) => {
+        const sendTo = onlineUsers.get(message.to);
         if (sendTo) {
           socket.to(sendTo).emit("send-msg", message);
         }
