@@ -8,11 +8,12 @@ interface ISendMessage {
 }
 
 export const addMessage = async (message: FormData) => {
-  return await axios.post("/messages/addMessage", message, {
+  const { data } = await axios.post("/messages/addMessage", message, {
     headers: {
       "Content-Type": "multipart/form-data",
     },
   });
+  return data;
 };
 
 export const getMessages = async ({ from, to }: ISendMessage) => {

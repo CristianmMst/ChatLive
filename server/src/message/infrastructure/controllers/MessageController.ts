@@ -8,15 +8,18 @@ export class MessageController {
 
   addMessage = async (req: Request, res: Response, next: NextFunction) => {
     let image;
-    const message = req.body;
+    const messageData = req.body;
     try {
       if (req.file) {
         const uploadResponse = await cloudinary.uploader.upload(req.file.path);
         fs.unlinkSync(req.file.path);
         image = uploadResponse.url;
       }
-      await this.messageService.addMessage({ ...message, image });
-      return res.status(200).json({ msg: "Add message successfully" });
+      const message = await this.messageService.addMessage({
+        ...messageData,
+        image,
+      });
+      return res.status(200).json({ message });
     } catch (error) {
       next(error);
     }

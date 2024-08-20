@@ -12,6 +12,7 @@ export class MessageService {
       messageData.image,
     );
     await this.messageRepository.addMessage(message);
+    return message;
   }
 
   async getAllMessages(from: string, to: string) {

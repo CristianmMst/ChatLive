@@ -47,6 +47,14 @@ export const useMessages = ({ currentUser, socket, scrollRef }: Params) => {
         );
       }
     },
+    onSuccess: ({ message }) => {
+      socket.emit("send-msg", {
+        to: message.to,
+        from: message.from,
+        text: message.text,
+        image: message.image,
+      });
+    },
   });
 
   const handleSendMsg = async ({
@@ -67,23 +75,11 @@ export const useMessages = ({ currentUser, socket, scrollRef }: Params) => {
       formData.append("image", image);
     }
 
-    socket.emit("send-msg", {
-      text,
-      image,
-      from: id,
-      to: currentUser.id,
-    });
-
     saveMessage(formData);
   };
 
   useEffect(() => {
-    let imageUrl: string;
     socket.on("send-msg", (message) => {
-      if (message.image) {
-        const blob = new Blob([message.image], { type: "image/png" });
-        imageUrl = URL.createObjectURL(blob);
-      }
       const previousData = queryClient.getQueryData<Message[]>([
         "messages",
         currentUser,
@@ -95,15 +91,14 @@ export const useMessages = ({ currentUser, socket, scrollRef }: Params) => {
             ...previousData,
             {
               fromSelf: false,
-              image: imageUrl,
               text: message.text,
+              image: message.image,
               createdAt: new Date(),
             },
           ],
         );
       }
     });
-    return () => URL.revokeObjectURL(imageUrl);
   }, [currentUser, queryClient, socket]);
 
   useEffect(() => {
