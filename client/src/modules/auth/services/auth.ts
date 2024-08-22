@@ -17,9 +17,9 @@ export const verifyUser = async () => {
 
 export const logout = async (id: string | undefined) => {
   await axios.post(`/auth/logout/${id}`);
-  window.open(`${CLIENT_URL}/login`, "_self");
+  window.location.href = `${CLIENT_URL}/login`;
 };
 
 export const google = async () => {
-  window.open(`${API_URL}/auth/google`, "_self");
+  window.location.href = `${API_URL}/auth/google`;
 };
