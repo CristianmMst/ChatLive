@@ -1,7 +1,7 @@
 import { Chat } from "./Chat";
-import { SOCKET_URL } from "@/consts";
 import { io } from "socket.io-client";
 import { useEffect, useState } from "react";
+import { SOCKET_URL } from "@/modules/shared/consts";
 import { Welcome } from "@/modules/shared/components";
 import { useUserStore } from "@/modules/shared/store/user";
 import { IContact } from "../modules/contacts/types/contacts";

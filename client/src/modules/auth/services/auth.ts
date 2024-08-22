@@ -1,6 +1,6 @@
-import { API_URL, CLIENT_URL } from "@/consts";
 import axios from "@/modules/shared/utils/axios";
 import { ILogin, IRegister } from "../types/auth";
+import { CLIENT_URL, API_URL } from "@/modules/shared/consts";
 
 export const login = async (user: ILogin) => {
   await axios.post("/auth/login", user);
