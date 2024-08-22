@@ -33,7 +33,7 @@ export const Messages = ({ messages, scrollRef }: Props) => {
               {message.image && (
                 <img
                   src={message.image}
-                  className={`w-full p-1 rounded-xl ${message.text && "pb-0"}`}
+                  className={`w-full p-1 rounded-xl cursor-pointer ${message.text && "pb-0"}`}
                 />
               )}
               <div className="flex items-start justify-between">
