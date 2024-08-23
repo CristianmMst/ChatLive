@@ -56,7 +56,7 @@ export const Register = () => {
           {errors.username?.message ||
             errors.email?.message ||
             errors.password?.message ||
-            (error instanceof AxiosError && error.response?.data)}
+            (error instanceof AxiosError && error.response?.data.message)}
         </p>
         <button className="bg-purple-600 rounded p-3 font-bold" type="submit">
           {!isLoading && "Registrarse"}
