@@ -34,4 +34,16 @@ export class MessageController {
       next(error);
     }
   };
+
+  downloadImage = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { public_id } = req.params;
+      const imageUrl = cloudinary.url(public_id, {
+        flags: "attachment",
+      });
+      res.redirect(imageUrl);
+    } catch (error) {
+      next(error);
+    }
+  };
 }

@@ -1,9 +1,9 @@
 import { Router } from "express";
 import { upload } from "../middlewares/multer";
+import { resizeImage } from "../middlewares/resizeImage";
 import { MessageService } from "../../application/MessageService";
 import { MessageController } from "../controllers/MessageController";
 import { MongoMessageRepository } from "../databases/MongoMessageRepository";
-import { resizeImage } from "../middlewares/resizeImage";
 
 export class MessageRoutes {
   static get routes(): Router {
@@ -20,6 +20,7 @@ export class MessageRoutes {
     );
 
     router.post("/getMessages", messageController.getMessages);
+    router.get("/download/:public_id", messageController.downloadImage);
 
     return router;
   }
