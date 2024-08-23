@@ -20,7 +20,7 @@ export const resizeImage = async (
     .toFile(filepath);
 
   fs.unlink(req.file.path, (error) => {
-    console.log(`Error to delete ${req.file?.path}`, error?.message);
+    if (error) return console.log(`Error to delete ${req.file?.path}`, error);
   });
 
   req.file.filename = filename;
