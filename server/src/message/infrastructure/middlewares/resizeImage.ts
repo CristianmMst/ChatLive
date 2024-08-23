@@ -19,7 +19,9 @@ export const resizeImage = async (
     .jpeg({ quality: 90 })
     .toFile(filepath);
 
-  fs.unlinkSync(req.file.path);
+  fs.unlink(req.file.path, (error) => {
+    console.log(`Error to delete ${req.file?.path}`, error?.message);
+  });
 
   req.file.filename = filename;
   req.file.path = filepath;
