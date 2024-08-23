@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const Messages = ({ messages, scrollRef }: Props) => {
-  const [image, setImage] = useState<string>("");
+  const [image, setImage] = useState<string>();
   const dialogRef = useRef<HTMLDialogElement>(null);
 
   const openImage = (image: string) => {
@@ -39,12 +39,18 @@ export const Messages = ({ messages, scrollRef }: Props) => {
               <form method="dialog">
                 <img src={image} className={`w-full p-2 rounded-xl`} />
                 <div className="flex items-center gap-x-2 absolute right-4 top-4">
-                  <a
-                    download
-                    href={`${API_URL}/messages/download/${image.split("/")[7].split(".").shift()}`}
-                  >
-                    <IoMdDownload size={30} color="white" />
-                  </a>
+                  {image?.split(":")[0] === "blob" ? (
+                    <a download href={`${image}`}>
+                      <IoMdDownload size={30} color="white" />
+                    </a>
+                  ) : (
+                    <a
+                      download
+                      href={`${API_URL}/messages/download/${image.split("/")[7].split(".").shift()}`}
+                    >
+                      <IoMdDownload size={30} color="white" />
+                    </a>
+                  )}
 
                   <button type="submit">
                     <IoClose size={35} color="white" />
