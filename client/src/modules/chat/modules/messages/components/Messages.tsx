@@ -1,4 +1,4 @@
-import { RefObject, useRef } from "react";
+import { RefObject, useRef, useState } from "react";
 import { IoClose } from "react-icons/io5";
 import { formatTime } from "@/modules/shared/utils";
 
@@ -15,9 +15,11 @@ interface Props {
 }
 
 export const Messages = ({ messages, scrollRef }: Props) => {
+  const [image, setImage] = useState<string>("");
   const dialogRef = useRef<HTMLDialogElement>(null);
 
-  const openImage = () => {
+  const openImage = (image: string) => {
+    setImage(image);
     if (dialogRef.current) {
       dialogRef.current.showModal();
     }
@@ -32,7 +34,7 @@ export const Messages = ({ messages, scrollRef }: Props) => {
             className="absolute w-[80%] backdrop:backdrop-blur-sm backdrop:bg-zinc-900 backdrop:bg-opacity-70 select-none rounded"
           >
             <form method="dialog">
-              <img src={message.image} className={`w-full p-2 rounded-xl`} />
+              <img src={image} className={`w-full p-2 rounded-xl`} />
               <button type="submit" className="absolute right-4 top-4">
                 <IoClose size={35} color="white" />
               </button>
@@ -53,7 +55,7 @@ export const Messages = ({ messages, scrollRef }: Props) => {
               >
                 {message.image && (
                   <img
-                    onClick={openImage}
+                    onClick={() => openImage(message.image)}
                     src={message.image}
                     className={`w-full p-1 rounded-xl cursor-pointer ${message.text && "pb-0"}`}
                   />
