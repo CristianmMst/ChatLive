@@ -46,3 +46,23 @@
     transform: scale(110%);
   }
 }
+
+dialog[open] {
+  scale: 1;
+  opacity: 1;
+  transition: scale 0.2s ease-in-out;
+
+  @starting-style {
+    scale: 0;
+    opacity: 0;
+  }
+}
+
+dialog {
+  transition:
+    scale 0.3s ease,
+    opacity 0.3s ease,
+    display 0.3s allow-discrete;
+  scale: 0;
+  opacity: 0;
+}
