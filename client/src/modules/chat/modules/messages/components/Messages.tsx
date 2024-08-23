@@ -35,20 +35,23 @@ export const Messages = ({ messages, scrollRef }: Props) => {
             ref={dialogRef}
             className="absolute w-[80%] backdrop:backdrop-blur-sm backdrop:bg-zinc-900 backdrop:bg-opacity-70 select-none rounded"
           >
-            <form method="dialog">
-              <img src={image} className={`w-full p-2 rounded-xl`} />
-              <div className="flex items-center gap-x-2 absolute right-4 top-4">
-                <a
-                  download
-                  href={`${API_URL}/messages/download/${message.image.split("/")[7].split(".").shift()}`}
-                >
-                  <IoMdDownload size={30} color="white" />
-                </a>
-                <button type="submit">
-                  <IoClose size={35} color="white" />
-                </button>
-              </div>
-            </form>
+            {image && (
+              <form method="dialog">
+                <img src={image} className={`w-full p-2 rounded-xl`} />
+                <div className="flex items-center gap-x-2 absolute right-4 top-4">
+                  <a
+                    download
+                    href={`${API_URL}/messages/download/${image.split("/")[7].split(".").shift()}`}
+                  >
+                    <IoMdDownload size={30} color="white" />
+                  </a>
+
+                  <button type="submit">
+                    <IoClose size={35} color="white" />
+                  </button>
+                </div>
+              </form>
+            )}
           </dialog>
           <div
             className={`flex items-center ${

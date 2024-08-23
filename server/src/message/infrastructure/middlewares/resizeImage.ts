@@ -10,7 +10,7 @@ export const resizeImage = async (
 ) => {
   if (!req.file) return next();
 
-  const filename = `resized-${Date.now()}-${req.file.originalname}`;
+  const filename = `${Date.now()}-${req.file.originalname}`;
   const filepath = path.join(__dirname, "../../../../uploads", filename);
 
   await sharp(req.file.path)
