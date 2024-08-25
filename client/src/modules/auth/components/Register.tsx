@@ -3,15 +3,10 @@ import { useRegister } from "../hooks";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { ClipLoader } from "react-spinners";
+import { RegisterData } from "../types/auth";
 import { registerSchema } from "../schemas/register";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ButtonGoogle } from "@/modules/shared/components";
-
-interface FormData {
-  email: string;
-  password: string;
-  username: string;
-}
 
 export const Register = () => {
   const { mutate: Register, isLoading, error } = useRegister();
@@ -24,7 +19,7 @@ export const Register = () => {
     resolver: yupResolver(registerSchema),
   });
 
-  const onSubmit = async (user: FormData) => {
+  const onSubmit = async (user: RegisterData) => {
     Register(user);
   };
   return (

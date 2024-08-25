@@ -1,12 +1,12 @@
 import axios from "@/modules/shared/utils/axios";
-import { ILogin, IRegister } from "../types/auth";
+import { LoginData, RegisterData } from "../types/auth";
 import { CLIENT_URL, API_URL } from "@/modules/shared/consts";
 
-export const login = async (user: ILogin) => {
+export const login = async (user: LoginData) => {
   await axios.post("/auth/login", user);
 };
 
-export const register = async (user: IRegister) => {
+export const register = async (user: RegisterData) => {
   await axios.post("/auth/register", user);
 };
 

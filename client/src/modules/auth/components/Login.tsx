@@ -2,15 +2,11 @@ import { AxiosError } from "axios";
 import { useLogin } from "../hooks";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
+import { LoginData } from "../types/auth";
 import { ClipLoader } from "react-spinners";
 import { loginSchema } from "../schemas/login";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ButtonGoogle } from "@/modules/shared/components";
-
-interface FormData {
-  email: string;
-  password: string;
-}
 
 export const Login = () => {
   const { mutate: Login, isLoading, error } = useLogin();
@@ -23,7 +19,7 @@ export const Login = () => {
     resolver: yupResolver(loginSchema),
   });
 
-  const onSubmit = async (user: FormData) => {
+  const onSubmit = async (user: LoginData) => {
     Login(user);
   };
 
