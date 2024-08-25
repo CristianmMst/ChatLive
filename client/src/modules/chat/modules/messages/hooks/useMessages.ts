@@ -6,19 +6,24 @@ import { useUserStore } from "@/modules/shared/store/user";
 import { getMessages, addMessage } from "../services/messages";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
 
-interface Params {
+interface Props {
   socket: Socket;
   currentUser: IContact;
   scrollRef: RefObject<HTMLDivElement>;
 }
 
-export const useMessages = ({ currentUser, socket, scrollRef }: Params) => {
+export const useMessages = ({ currentUser, socket, scrollRef }: Props) => {
   const queryClient = useQueryClient();
   const { id } = useUserStore((state) => state);
 
   const { data: messages } = useQuery<Message[]>({
     queryKey: ["messages", currentUser],
-    queryFn: () => getMessages({ from: id, to: currentUser.id }),
+    queryFn: () => {
+      if (id && currentUser.id) {
+        getMessages(id, currentUser.id);
+      }
+      return [];
+    },
     refetchOnWindowFocus: false,
   });
 

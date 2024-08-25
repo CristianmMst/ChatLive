@@ -1,12 +1,5 @@
 import axios from "@/modules/shared/utils/axios";
 
-interface ISendMessage {
-  to?: string;
-  from?: string;
-  text?: string;
-  image?: string;
-}
-
 export const addMessage = async (message: FormData) => {
   const { data } = await axios.post("/messages/addMessage", message, {
     headers: {
@@ -16,7 +9,7 @@ export const addMessage = async (message: FormData) => {
   return data;
 };
 
-export const getMessages = async ({ from, to }: ISendMessage) => {
+export const getMessages = async (from: string, to: string) => {
   const { data } = await axios.post("messages/getMessages", {
     from,
     to,

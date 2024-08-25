@@ -1,15 +1,9 @@
 import { IoClose } from "react-icons/io5";
+import { Message } from "../types/messages";
 import { IoMdDownload } from "react-icons/io";
 import { API_URL } from "@/modules/shared/consts";
 import { RefObject, useRef, useState } from "react";
 import { formatTime } from "@/modules/shared/utils";
-
-interface Message {
-  text: string;
-  image: string;
-  fromSelf: boolean;
-  createdAt: Date;
-}
 
 interface Props {
   messages: Message[] | undefined;
