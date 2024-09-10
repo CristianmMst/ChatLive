@@ -1,5 +1,6 @@
 import { FaRegUser } from "react-icons/fa6";
 import { IContact } from "../types/contacts";
+import { formatTime } from "@/modules/shared/utils";
 import { Header } from "@/modules/shared/components";
 
 interface Props {
@@ -36,7 +37,19 @@ export const Contacts = ({
                 <FaRegUser color="#a1a1aa" size={15} className="w-full" />
               )}
             </div>
-            <h2 className="text-lg">{contact.username}</h2>
+            {contact.lastMessage && (
+              <>
+                <div className="leading-3 flex-1">
+                  <h2 className="text-lg font-bold">{contact.username}</h2>
+                  <p className="text-zinc-300">
+                    {contact.lastMessage.message.text}
+                  </p>
+                </div>
+                <p className="text-xs">
+                  {formatTime(contact.lastMessage.createdAt)}
+                </p>
+              </>
+            )}
           </div>
         ))}
       </div>

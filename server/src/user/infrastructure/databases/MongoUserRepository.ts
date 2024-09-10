@@ -1,6 +1,7 @@
 import { userModel } from "../models/userModel";
 import { User } from "../../../user/domain/User";
 import { UserRepository } from "../../../user/domain/UserRepository";
+import { messageModel } from "../../../message/infrastructure/models/MessageModel";
 
 export class MongoUserRepository implements UserRepository {
   async save(user: User) {
@@ -19,13 +20,23 @@ export class MongoUserRepository implements UserRepository {
 
   async getContacts(id: string) {
     const users = await userModel.find({ _id: { $ne: id } });
-    const contacts = users.map(({ id, username, avatar }) => {
-      return {
-        id,
-        avatar,
-        username,
-      };
-    });
+
+    const contacts = await Promise.all(
+      users.map(async ({ id, username, avatar }) => {
+        const lastMessage = await messageModel
+          .findOne({
+            users: { $all: [id, users[0].id] },
+          })
+          .sort({ createdAt: -1 });
+
+        return {
+          id,
+          avatar,
+          username,
+          lastMessage: lastMessage,
+        };
+      }),
+    );
     return contacts;
   }
 
