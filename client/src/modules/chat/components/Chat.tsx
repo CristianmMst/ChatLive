@@ -25,8 +25,16 @@ export const Chat = ({ socket, currentUser, handleContactClick }: Props) => {
     <div className="grid grid-rows-chat overflow-hidden">
       <div className="flex justify-between items-center px-8 bg-zinc-900 border-b border-b-zinc-700">
         <div className="flex items-center gap-3">
-          <div className="bg-zinc-800 p-3 rounded-full">
-            <FaRegUser color="#a1a1aa" size={15} />
+          <div className="bg-zinc-800 rounded-full grid place-items-center w-10 h-10">
+            {currentUser.avatar ? (
+              <img
+                src={currentUser.avatar}
+                alt="avatar"
+                className="rounded-full"
+              />
+            ) : (
+              <FaRegUser color="#a1a1aa" size={15} />
+            )}
           </div>
           <h2 className="text-lg">{currentUser.username}</h2>
         </div>

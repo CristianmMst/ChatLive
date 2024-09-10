@@ -1,9 +1,11 @@
+import { ChangeEvent, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { updateProfile } from "../services/profile";
 import { User, useUserStore } from "@/modules/shared/store/user";
-import { ChangeEvent, useState } from "react";
 
 export const useUpdateProfile = () => {
+  const navigate = useNavigate();
   const [image, setImage] = useState<File>();
   const { username, avatar, setUser } = useUserStore((state) => state);
 
@@ -21,6 +23,7 @@ export const useUpdateProfile = () => {
     onSuccess: (user: User) => {
       setUser(user);
       setNewAvatar(user.avatar);
+      navigate("/");
     },
   });
 
