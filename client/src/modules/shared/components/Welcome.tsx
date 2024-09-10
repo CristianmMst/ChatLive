@@ -8,7 +8,7 @@ export const Welcome = () => {
       <img className="w-60" src={IlustrationChat} alt="IlustrationChat" />
       <div>
         <h1 className="font-bold text-xl text-center">
-          ¡Bienvenido/a, {username}!
+          ¡Bienvenido/a, <span className="text-purple-500">{username}</span>!
         </h1>
         <p>Selecciona un chat para empezar a enviar mensajes</p>
       </div>
