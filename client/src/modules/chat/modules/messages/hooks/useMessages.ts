@@ -20,7 +20,7 @@ export const useMessages = ({ currentUser, socket, scrollRef }: Props) => {
     queryKey: ["messages", currentUser],
     queryFn: () => {
       if (id && currentUser.id) {
-        getMessages(id, currentUser.id);
+        return getMessages(id, currentUser.id);
       }
       return [];
     },
