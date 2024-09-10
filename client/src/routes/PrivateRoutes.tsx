@@ -1,14 +1,9 @@
-import { ReactNode } from "react";
 import { BarLoader } from "react-spinners";
-import { Navigate } from "react-router-dom";
 import { useAuth } from "@/modules/auth/hooks";
+import { Navigate, Outlet } from "react-router-dom";
 import { useUserStore } from "@/modules/shared/store/user";
 
-type Props = {
-  children?: ReactNode;
-};
-
-export function PrivateRoute({ children }: Props) {
+export function PrivateRoute() {
   const { isLoading } = useAuth();
   const { id } = useUserStore((state) => state);
 
@@ -19,7 +14,7 @@ export function PrivateRoute({ children }: Props) {
       </div>
     );
 
-  return id ? children : <Navigate to={"/login"} />;
+  return id ? <Outlet /> : <Navigate to={"/login"} />;
 }
 
 export default PrivateRoute;

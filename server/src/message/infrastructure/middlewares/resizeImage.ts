@@ -9,7 +9,6 @@ export const resizeImage = async (
   next: NextFunction,
 ) => {
   if (!req.file) return next();
-
   const filename = `${Date.now()}-${req.file.originalname}`;
   const filepath = path.join(__dirname, "../../../../uploads", filename);
 

@@ -1,21 +1,17 @@
+import fs from "node:fs";
+import { User } from "../../domain/User";
 import { NextFunction, Request, Response } from "express";
 import { UserService } from "../../application/UserService";
-import { User } from "../../domain/User";
+import cloudinary from "../../../message/infrastructure/config/cloudinary";
 
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   getUser = async (req: Request, res: Response, next: NextFunction) => {
-    const data = req.user as User;
+    const { id } = req.user as User;
     try {
-      const user = await this.userService.findById(data.id!);
-      const userWithoutPassword = {
-        id: user.id,
-        email: user.email,
-        username: user.username,
-        password: undefined,
-      };
-      res.json(userWithoutPassword);
+      const user = await this.userService.findById(id!);
+      res.json(user);
     } catch (error) {
       next(error);
     }
@@ -26,6 +22,22 @@ export class UserController {
     try {
       const users = await this.userService.getContacts(id);
       return res.json(users);
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  updateUser = async (req: Request, res: Response, next: NextFunction) => {
+    let newUser = req.body;
+    const { id } = req.user as User;
+    try {
+      if (req.file) {
+        const uploadResponse = await cloudinary.uploader.upload(req.file.path);
+        fs.unlinkSync(req.file.path);
+        newUser = { ...newUser, avatar: uploadResponse.url };
+      }
+      const userUpdated = await this.userService.updateUser(id!, newUser);
+      return res.json(userUpdated);
     } catch (error) {
       next(error);
     }

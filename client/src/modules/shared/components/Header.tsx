@@ -1,5 +1,7 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { useOutsideClick } from "../hooks";
+import { FaRegUser } from "react-icons/fa";
 import { useUserStore } from "../store/user";
 import { RiChat3Line } from "react-icons/ri";
 import { PiSignOutBold } from "react-icons/pi";
@@ -31,11 +33,18 @@ export const Header = () => {
         >
           <BsThreeDotsVertical size={20} />
           <div
-            className={`bg-zinc-800 absolute top-12 right-2 w-40 rounded p-1 transition-transform origin-top-right border border-zinc-700 ${open ? "scale-100" : "scale-0"}`}
+            className={`bg-zinc-800 absolute top-12 right-2 w-40 rounded transition-transform origin-top-right border border-zinc-700 ${open ? "scale-100" : "scale-0"}`}
           >
             <ul>
+              <Link to={"/profile"}>
+                <li className="flex items-center w-full py-1 px-3 gap-x-2 transition-colors hover:bg-zinc-900 cursor-pointer rounded">
+                  <FaRegUser size={18} />
+                  <p>Mi perfil</p>
+                </li>
+              </Link>
+
               <li
-                className="flex justify-around items-center w-full p-1 transition-colors hover:bg-zinc-900 cursor-pointer"
+                className="flex items-center w-full py-1 px-3 gap-x-2 transition-colors rounded hover:bg-zinc-900 cursor-pointer border-t border-zinc-700"
                 onClick={handleLogout}
               >
                 <PiSignOutBold size={20} />

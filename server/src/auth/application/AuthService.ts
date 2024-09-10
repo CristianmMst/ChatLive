@@ -44,9 +44,16 @@ export class AuthService {
 
   async handleGoogleAuth(profile: Profile): Promise<User> {
     const email = profile.emails?.[0].value!;
+    const avatar = profile.photos?.[0].value!;
     const userExists = await this.userRepository.findByEmail(email);
     if (!userExists) {
-      const user = new User(email, profile.displayName, null, profile.id);
+      const user = new User(
+        email,
+        profile.displayName,
+        null,
+        avatar,
+        profile.id,
+      );
       return this.userRepository.save(user);
     }
     return userExists;

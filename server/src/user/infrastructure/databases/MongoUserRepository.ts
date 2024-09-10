@@ -27,4 +27,10 @@ export class MongoUserRepository implements UserRepository {
     });
     return contacts;
   }
+
+  async updateUser(id: string, user: User) {
+    return await userModel.findByIdAndUpdate({ _id: id }, user, {
+      new: true,
+    });
+  }
 }
