@@ -25,8 +25,16 @@ export const Contacts = ({
             } hover:bg-zinc-800 transition duration-500`}
             onClick={() => handleContactClick(index, contact)}
           >
-            <div className="bg-zinc-700 p-3 rounded-full">
-              <FaRegUser color="#a1a1aa" size={15} />
+            <div className="bg-zinc-700 rounded-full w-10 h-10 grid place-items-center">
+              {contact.avatar ? (
+                <img
+                  src={contact.avatar}
+                  alt="avatar"
+                  className="w-full h-full rounded-full"
+                />
+              ) : (
+                <FaRegUser color="#a1a1aa" size={15} className="w-full" />
+              )}
             </div>
             <h2 className="text-lg">{contact.username}</h2>
           </div>

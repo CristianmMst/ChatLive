@@ -5,5 +5,5 @@ export interface UserRepository {
   findById(id: string): Promise<User | null>;
   findByEmail(email: string): Promise<User | null>;
   updateUser(id: string, user: User): Promise<User | null>;
-  getContacts(id: string): Promise<Pick<User, "id" | "username">[]>;
+  getContacts(id: string): Promise<Pick<User, "id" | "username" | "avatar">[]>;
 }

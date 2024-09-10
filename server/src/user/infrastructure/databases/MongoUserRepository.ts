@@ -19,9 +19,10 @@ export class MongoUserRepository implements UserRepository {
 
   async getContacts(id: string) {
     const users = await userModel.find({ _id: { $ne: id } });
-    const contacts = users.map(({ id, username }) => {
+    const contacts = users.map(({ id, username, avatar }) => {
       return {
         id,
+        avatar,
         username,
       };
     });

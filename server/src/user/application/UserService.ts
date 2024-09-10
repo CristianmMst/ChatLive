@@ -17,7 +17,9 @@ export class UserService {
     return userWithoutPassword;
   }
 
-  async getContacts(id: string): Promise<Pick<User, "id" | "username">[]> {
+  async getContacts(
+    id: string,
+  ): Promise<Pick<User, "id" | "username" | "avatar">[]> {
     const user = await this.userRepository.findById(id);
     if (!user) throw new UserNotFound();
     const users = await this.userRepository.getContacts(id);
