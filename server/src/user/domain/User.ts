@@ -1,3 +1,12 @@
+interface UserProps {
+  id?: string;
+  email: string;
+  username: string;
+  avatar?: string | null;
+  password?: string | null;
+  googleId?: string | null;
+}
+
 export class User {
   readonly id: string | undefined;
   readonly email: string;
@@ -6,14 +15,14 @@ export class User {
   readonly password: string | null;
   readonly googleId: string | null;
 
-  constructor(
-    email: string,
-    username: string,
-    password: string | null = null,
-    avatar: string | null = null,
-    googleId: string | null = null,
-    id?: string,
-  ) {
+  constructor({
+    id,
+    email,
+    username,
+    avatar = null,
+    password = null,
+    googleId = null,
+  }: UserProps) {
     this.id = id;
     this.email = email;
     this.avatar = avatar;

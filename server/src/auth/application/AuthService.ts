@@ -38,7 +38,7 @@ export class AuthService {
     if (userExists) throw new UserAlreadyExists();
 
     const passwordHash = await encryptPassword(password);
-    const user = new User(email, username, passwordHash);
+    const user = new User({ email, username, password: passwordHash });
     await this.userRepository.save(user);
   }
 
@@ -47,13 +47,12 @@ export class AuthService {
     const avatar = profile.photos?.[0].value!;
     const userExists = await this.userRepository.findByEmail(email);
     if (!userExists) {
-      const user = new User(
+      const user = new User({
         email,
-        profile.displayName,
-        null,
         avatar,
-        profile.id,
-      );
+        googleId: profile.id,
+        username: profile.displayName,
+      });
       return this.userRepository.save(user);
     }
     return userExists;
