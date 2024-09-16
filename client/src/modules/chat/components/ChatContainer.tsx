@@ -30,7 +30,7 @@ export const ChatContainer = () => {
 
   return (
     <div className="grid w-[100vw] h-[100vh]">
-      <div className="grid grid-cols-chat bg-zinc-800 w-full h-full rounded-lg relative overflow-hidden">
+      <div className="grid grid-cols-chat bg-zinc-800 w-full h-full rounded-lg relative overflow-hidden max-sm:grid-cols-1">
         <Contacts
           contacts={contacts}
           currentActive={currentActive}

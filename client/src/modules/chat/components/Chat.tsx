@@ -22,7 +22,9 @@ export const Chat = ({ socket, currentUser, handleContactClick }: Props) => {
   });
 
   return (
-    <div className="grid grid-rows-chat overflow-hidden">
+    <div
+      className={`grid grid-rows-chat overflow-hidden ${!currentUser && "max-sm:hidden"}`}
+    >
       <div className="flex justify-between items-center px-8 bg-zinc-900 border-b border-b-zinc-700">
         <div className="flex items-center gap-3">
           <div className="bg-zinc-800 rounded-full grid place-items-center w-10 h-10">

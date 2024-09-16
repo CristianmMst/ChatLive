@@ -15,7 +15,9 @@ export const Contacts = ({
   handleContactClick,
 }: Props) => {
   return (
-    <div className="grid grid-rows-contacts bg-zinc-900 border-r border-r-zinc-700">
+    <div
+      className={`grid grid-rows-contacts bg-zinc-900 border-r border-r-zinc-700 ${currentActive != null && "max-sm:hidden"}`}
+    >
       <Header />
       <div className="flex flex-col overflow-auto gap-y-4 w-full p-4">
         {contacts?.map((contact, index) => (
