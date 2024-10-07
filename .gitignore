@@ -1,4 +1,5 @@
 .env
+.turbo
 dist
 uploads
 node_modules
