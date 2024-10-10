@@ -1,4 +1,5 @@
 import cors from "cors";
+import path from "path";
 import http from "http";
 import passport from "passport";
 import { Server } from "socket.io";
@@ -46,6 +47,11 @@ export class App {
 
     this.app.use(express.json());
     this.app.use("/api", this.routes);
+
+    this.app.use(express.static(path.join(__dirname, "../../", "client/dist")));
+    this.app.get("*", (_, res: any) => {
+      res.sendFile(path.join(__dirname, "../../", "client/dist", "index.html"));
+    });
 
     this.app.use(errorHandler);
 
