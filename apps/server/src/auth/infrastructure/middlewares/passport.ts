@@ -7,8 +7,6 @@ import { MongoUserRepository } from "../../../user/infrastructure/databases/Mong
 const userRepository = new MongoUserRepository();
 const authService = new AuthService(userRepository);
 
-console.log(API_URL);
-
 passport.use(
   new GoogleStrategy(
     {
